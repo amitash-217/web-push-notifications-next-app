@@ -30,19 +30,21 @@ jobs:
         run: |
           docker save -o $IMG_NAME.tar $IMG_NAME:latest
 
-    #   - name: Upload Docker image artifact
-    #     uses: actions/upload-artifact@v4
-    #     with:
-    #       name: docker-image-${{ env.IMG_NAME }}
-    #       path: ${{ env.IMG_NAME }}.tar
+      - name: Generate unique tag
+        id: tag
+        run: |
+          short_sha=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          timestamp=$(date +"%Y%m%d-%H%M%S")
+          echo "tag=${timestamp}-${short_sha}" >> $GITHUB_OUTPUT
+    
       - name: Create Release
         id: create_release
         uses: comnoco/create-release-action@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.tag.outputs.tag }}
+          release_name: Release ${{ steps.tag.outputs.tag }}
           draft: false
           prerelease: false
     
