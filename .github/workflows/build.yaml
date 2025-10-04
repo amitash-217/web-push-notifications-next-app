@@ -35,7 +35,7 @@ jobs:
         run: |
           short_sha=$(echo "${GITHUB_SHA}" | cut -c1-7)
           timestamp=$(date +"%Y%m%d-%H%M%S")
-          echo "{tag}=${timestamp}-${short_sha}" >> $GITHUB_OUTPUT
+          echo "tag=${timestamp}-${short_sha}" >> $GITHUB_OUTPUT
     
       - name: Create Release
         id: create_release
