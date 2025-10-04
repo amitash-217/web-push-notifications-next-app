@@ -18,6 +18,9 @@ jobs:
 
       - name: Set image name
         run: echo "IMG_NAME=web-push-notification-next-app" >> $GITHUB_ENV
+    
+      - name: Populate env
+        run: echo "${{ secrets.BASE64_ENV }}" | base64 -w 0 -d > .env
 
       - name: Build Docker image (no push)
         run: |
