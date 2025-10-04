@@ -1,4 +1,4 @@
-name: Build and Save Docker Image
+name: Build and Save Docker Image on ARM64
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - '*' # Or specify branches like 'main'
 
 jobs:
-  docker-amd64:
-    runs-on: ubuntu-latest
+  docker-arm64:
+    runs-on: ubuntu-latest-arm64
 
     steps:
       - name: Set up Docker Buildx
