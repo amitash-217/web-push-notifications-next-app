@@ -35,7 +35,7 @@ const PushNotifications = () => {
           });
 
           // Send subscription to server
-          await fetch('http://localhost:3001/subscribe', {
+          await fetch('http://pi.hole:3001/subscribe', {
             method: 'POST',
             body: JSON.stringify(subscription),
             headers: {
