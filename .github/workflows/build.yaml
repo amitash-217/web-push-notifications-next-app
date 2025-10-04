@@ -41,8 +41,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: latest
-          release_name: Release Latest ARM64 image
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
     
@@ -53,6 +53,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./$IMG_NAME.tar
-          asset_name: $IMG_NAME.tar
-          asset_content_type: application/tar
+          asset_path: ${{ env.IMG_NAME }}.tar
+          asset_name: ${{ env.IMG_NAME }}.tar
+          asset_content_type: application/x-tar
